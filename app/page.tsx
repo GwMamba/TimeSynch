@@ -15,10 +15,24 @@ export default function Home() {
 
       <section>
 
+        <div>
+          <h1>
+            Stop Wasting Time on Timezone Conflicts
+          </h1>
+          <p>
+            TimeSync is a tool that helps you find the best time to meet with your team.
+          </p>
+          <Button>
+            Synch your timezones
+          </Button>
+        </div>
+
       </section>
 
       <footer>
-
+        <div>
+         <p>© 2025 TimeSync</p>
+        </div>
       </footer>
 
     </div>

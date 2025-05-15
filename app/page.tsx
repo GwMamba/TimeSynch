@@ -50,19 +50,24 @@ export default function Home() {
       </section>
 
       {/* Features Section */}
-      <section>
+      <section id="features" className="border-t bg-muted/50">
         <div className="container mx-auto px-4 py-12 md:py-24">
-          <div>
-            <h3>Visuzlize Time Zones</h3>
-            <p>
-              See all your teams' timezones at a glance, with easy to understand visuals.
-            </p>
+          <div className="grid gap-6 md:grid-cols-3">
+            <div className="space-y-2">
+              <h3 className="text-xl font-bold">Visuzlize Time Zones</h3>
+              <p className="text-gray-500 dark:text-gray-400">
+                See all your teams' timezones at a glance, with easy to understand visuals.
+              </p>
+            </div>
+            <div className="space-y-2">
+              <h3 className="text-xl font-bold">Find Optimal Meeting Times</h3>
+              <p className="text-gray-500 dark:text-gray-400">Automatically find the best time for your team to meet, based on their timezones.</p>
+            </div>
+            <div className="space-y-2">
+              <h3 className="text-xl font-bold">Share with Your Team</h3>
+              <p className="text-gray-500 dark:text-gray-400">Send meeting invites that display in each recipient's local time.</p>
+            </div>
           </div>
-          <div>
-            <h3>Find Perfect Meeting Times</h3>
-            <p>Automatically find the best time for your team to meet, based on their timezones.</p>
-          </div>
-          <div>Send meeting invites that display in each recipient's local time.</div>
         </div>
       </section>
 

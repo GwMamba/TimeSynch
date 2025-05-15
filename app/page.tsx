@@ -49,6 +49,24 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Features Section */}
+      <section>
+        <div className="container mx-auto px-4 py-12 md:py-24">
+          <div>
+            <h3>Visuzlize Time Zones</h3>
+            <p>
+              See all your teams' timezones at a glance, with easy to understand visuals.
+            </p>
+          </div>
+          <div>
+            <h3>Find Perfect Meeting Times</h3>
+            <p>Automatically find the best time for your team to meet, based on their timezones.</p>
+          </div>
+          <div>Send meeting invites that display in each recipient's local time.</div>
+        </div>
+      </section>
+
+
       {/* Footer */}
       <footer className="border-t">
         <div className="container mx-auto px-4 py-6">

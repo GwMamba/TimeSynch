@@ -8,11 +8,19 @@ export default function Home() {
 
       {/* Header */}
       <header>
-        <div>
-          <span>TimeSync</span>
+        <div className="container mx-auto flex h-16 items-center justify-between px-4">
+          <div className="flex items-center gap-2">
+            <span>TimeSync</span>
+          </div>
+          <div>
+            <Link href="/dashboard">
+              <Button>Synch your timezones</Button>
+            </Link>
+          </div>
         </div>
       </header>
 
+      {/* Feature Section */}
       <section>
 
         <div>
@@ -22,13 +30,11 @@ export default function Home() {
           <p>
             TimeSync is a tool that helps you find the best time to meet with your team.
           </p>
-          <Button>
-            Synch your timezones
-          </Button>
         </div>
 
       </section>
 
+      {/* Footer */}
       <footer>
         <div>
          <p>© 2025 TimeSync</p>

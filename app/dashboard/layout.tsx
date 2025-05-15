@@ -39,6 +39,15 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
           </div>
         </div>
       </header>
+
+      {/* Main Content */}
+      <main>
+        <div>
+          {children}
+        </div>
+      </main>
+
+      
     </div>
   )
 }

@@ -20,29 +20,33 @@ export default function Home() {
         </div>
       </header>
 
-      {/* Feature Section */}
+      {/* Hero Section */}
       <section className="flex-1">
-
         <div className="container mx-auto px-4 py-12 md:py-24">
-          <h1>
-            Stop Wasting Time on Timezone Conflicts
-          </h1>
-          <p>
-            TimeSync is a tool that helps you find the best time to meet with your team.
-          </p>
           <div>
-            <Link href="/dashboard">
-              <Button>Synch your timezones</Button>
-            </Link>
-            <Button>
-              <Link href="#features">Learn More</Link>
-            </Button>
-          </div>
-          <div>
-            <TimeZoneDemo />
+            <div>
+              <div>
+                <h1>
+                  Stop Missing Meetings Across Timezones
+                </h1>
+                <p>
+                  TimeSync helps teams across the globe find perfect meeting times. No more confusion, no more missed connecctions.
+                </p>
+                <div>
+                  <Link href="/dashboard">
+                    <Button>Try Demo</Button>
+                  </Link>
+                  <Button>
+                    <Link href="#features">Learn More</Link>
+                  </Button>
+                </div>
+              </div>
+              <div>
+                <TimeZoneDemo />
+              </div>
+            </div>
           </div>
         </div>
-
       </section>
 
       {/* Footer */}

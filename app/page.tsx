@@ -46,9 +46,16 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer>
-        <div>
-         <p>© 2025 TimeSync</p>
+      <footer className="border-t">
+        <div className="container mx-auto px-4 py-6">
+          <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              © 2025 TimeSync
+            </p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              A Portfolio project by Gerald M
+            </p>
+          </div>
         </div>
       </footer>
 

@@ -47,7 +47,14 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
         </div>
       </main>
 
-      
+      {/* Footer */}
+      <footer>
+        <div>
+          <p>
+            TimeSync Dashboard = Portfolio Project
+          </p>
+        </div>
+      </footer>
     </div>
   )
 }

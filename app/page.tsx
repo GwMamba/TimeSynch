@@ -23,27 +23,25 @@ export default function Home() {
       {/* Hero Section */}
       <section className="flex-1">
         <div className="container mx-auto px-4 py-12 md:py-24">
-          <div>
-            <div>
-              <div>
-                <h1>
-                  Stop Missing Meetings Across Timezones
-                </h1>
-                <p>
-                  TimeSync helps teams across the globe find perfect meeting times. No more confusion, no more missed connecctions.
-                </p>
-                <div>
-                  <Link href="/dashboard">
-                    <Button>Try Demo</Button>
-                  </Link>
-                  <Button>
-                    <Link href="#features">Learn More</Link>
-                  </Button>
-                </div>
+          <div className="grid gap-6 md:grid-cols-2 md:gap-12 lg:grid-cols-2">
+            <div className="flex flex-col justify center space-y-4">
+              <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-lg hover-scale-105 transition-transform">
+                Stop Missing Meetings Across Timezones
+              </h1>
+              <p className="max-w-[600px] text-gray-500 md:text-xl dark:text-gray-400">
+                TimeSync helps teams across the globe find perfect meeting times. No more confusion, no more missed connecctions.
+              </p>
+              <div className="flex flex-col gap-2 min-[400px]:flex-row">
+                <Link href="/dashboard">
+                  <Button size="lg" className="font-medium px-8 py-6 text-lg hover:scale-105 transition-transform">Try Demo</Button>
+                </Link>
+                <Button variant="outline" size="lg" asChild>
+                  <Link href="#features">Learn More</Link>
+                </Button>
               </div>
-              <div>
-                <TimeZoneDemo />
-              </div>
+            </div>
+            <div className="flex items-center justify-center">
+              <TimeZoneDemo />
             </div>
           </div>
         </div>
@@ -54,9 +52,9 @@ export default function Home() {
         <div className="container mx-auto px-4 py-12 md:py-24">
           <div className="grid gap-6 md:grid-cols-3">
             <div className="space-y-2">
-              <h3 className="text-xl font-bold">Visuzlize Time Zones</h3>
+              <h3 className="text-xl font-bold">Visualize Time Zones</h3>
               <p className="text-gray-500 dark:text-gray-400">
-                See all your teams' timezones at a glance, with easy to understand visuals.
+                See all your team's timezones at a glance, with easy to understand visuals.
               </p>
             </div>
             <div className="space-y-2">
@@ -77,7 +75,7 @@ export default function Home() {
         <div className="container mx-auto px-4 py-6">
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
             <p className="text-sm text-gray-500 dark:text-gray-400">
-              © 2025 TimeSync
+              © 2025 TimeSync. All rights reserved.
             </p>
             <p className="text-sm text-gray-500 dark:text-gray-400">
               A Portfolio project by Gerald M

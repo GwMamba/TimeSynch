@@ -1,95 +1,83 @@
 "use client";
 
-import { timeZones } from "@/lib/timezone-data";
 import { useEffect, useState } from "react";
+import { formatInTimeZone } from "date-fns-tz";
 
 const demoTimeZones = [
-  { id: "new-york",
-    label: "New York",
-    offset: -5,
-    timeZone: "Eastern Standard Time",
-  },
-  {
-    id: "london",
-    label: "London",
-    offset: 0,
-    timeZone: "Greenwich Mean Time",
-  },
-  {
-    id: "berlin",
-    label: "Berlin",
-    offset: 1,
-    timeZone: "Central European Time",
-  },
-  {
-    id: "nairobi",
-    label: "Nairobi",
-    offset: 3,
-    timeZone: "Moscow/Arabian Time",
-  },
-  {
-    id: "dubai",
-    label: "Dubai",
-    offset: 4,
-    timeZone: "Gulf Standard Time",
-  },
-  {
-    id: "tokyo",
-    label: "Tokyo",
-    offset: 9,
-    timeZone: "Japan Standard Time",
-  },
-  {
-    id: "auckland",
-    label: "Auckland",
-    offset: 12,
-    timeZone: "New Zealand Standard Time",
-  },
+  { id: 'new-york', label: 'New York', timeZone: 'America/New_York' },
+  { id: 'london', label: 'London', timeZone: 'Europe/London' },
+  { id: 'tokyo', label: 'Tokyo', timeZone: 'Asia/Tokyo' },
 ];
 
-export function TimeZoneDemo() {
-  const [currentTime, setCurrentTime] = useState(new Date());
 
+export function TimeZoneDemo() {
+  // Initialize with null for ssr to avoid hydration errors
+  const [currentTime, setCurrentTime] = useState<Date | null>(null);
+
+  // Set the initial time on the client side only
   useEffect(() => {
+    setCurrentTime(new Date());
+
     const interval = setInterval(() => {
-        setCurrentTime(new Date());
+      setCurrentTime(new Date());
     }, 1000);
 
     return () => clearInterval(interval);
   }, []);
 
+  if (!currentTime)
+    return (
+      <div className="w-full space-y-4 rounded-lg border bg-card p-6 shadow-sm">
+        <h3 className="text-lg font-medium">Current Time across time zones</h3>
+        <div className="space-y-3">
+          {demoTimeZones.map((tz) => (
+            <div
+              key={tz.id}
+              className="flex items-center justify-between rounded-md p-3 bg-gray-100 dark:bg-gray-800"
+            >
+              <div>
+                <p className="font-medium">{tz.label}</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400">{tz.timeZone}</p>
+              </div>
+              <div className="text-xl font-semibold">Loading...</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+
+
+
   return (
     <div className="w-full space-y-4 rounded-lg border bg-card p-6 shadow-sm">
-      <h3 className="text-lg font-medium">Current Time across time zones</h3>
+      <h3 className="text-lg font-medium">
+        Current Time across time zones
+      </h3>
       <div className="space-y-3">
         {demoTimeZones.map((tz) => {
-          // calculate the local time in this timezone
-          const localTime = new Date(currentTime);
-          // Adjust the timezone offset and user's local offset
-          localTime.setHours(localTime.getHours() + tz.offset - new Date().getTimezoneOffset())
 
-          // format the time
-          const formattedTime = localTime.toLocaleTimeString([], {
-            hour: "2-digit",
-            minute: "2-digit",
-            hour12: true
-          });
+          // Format the time using the IANA time zone
+          const formattedTime = formatInTimeZone(currentTime, tz.timeZone, "h:mm aa"
+          );
 
-          // Determine if it's working hours (9AM - 5PM)
-          const hour = localTime.getHours();
-          const isWorkingHours = hour >= 9 && hour < 17;
+          // Get the local hour in this time zone for working hours check
+          const hourInTimeZone = parseInt(formatInTimeZone(currentTime, tz.timeZone, "H")
+          );
+
+          // Determine if it's working hours (9AM to 5PM)
+          const isWorkingHours = hourInTimeZone >= 9 && hourInTimeZone < 17;
 
           return (
             <div
               key={tz.id}
               className={`flex items-center justify-between rounded-md p-3 ${isWorkingHours ? "bg-green-100 dark:bg-green-900/30" : "bg-gray-100 dark:bg-gray-800"}`}
-              >
-                <div>
-                  <p className="font-medium">{tz.label}</p>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">{tz.timeZone}</p>
-                </div>
-                <div className="text-xl font-semibold">{formattedTime}</div>
+            >
+              <div>
+                <p className="font-medium">{tz.label}</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400">{tz.timeZone}</p>
               </div>
+              <div className="text-xl font-semibold">{formattedTime}</div>
+            </div>
           );
         })}
       </div>

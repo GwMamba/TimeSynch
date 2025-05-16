@@ -21,7 +21,8 @@ export function TimeZoneManager() {
         } catch (e) {
           console.error("Failed to parse saved time zones", e);
           setDefaultTimeZones();
-        } else {
+        }
+       } else {
           // set default time zones if none are saved
           setDefaultTimeZones();
         }
@@ -57,7 +58,7 @@ export function TimeZoneManager() {
   };
 
   const removeTimeZone = (id: string) => {
-    setSelectedTimeZones(selectedTimeZones.filter(tz => tz.id !=== id));
+    setSelectedTimeZones(selectedTimeZones.filter(tz => tz.id !== id));
   };
 
   return (

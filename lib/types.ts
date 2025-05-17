@@ -1,8 +1,8 @@
 export interface TimeZone {
   id: string;
-  name: string;
   label: string;
   offset: number;
+  timeZone: string;
 }
 
 export interface Meeting {

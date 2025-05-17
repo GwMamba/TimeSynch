@@ -31,12 +31,13 @@ export function TimeZoneManager() {
 
   const setDefaultTimeZones = () => {
     const defaults = [
-      timeZones.find((tz) => tz.id === "America/New_York"),
-      timeZones.find(tz => tz.id === "London"),
-      timeZones.find(tz => tz.id === "Tokyo"),
-      timeZones.find(tz => tz.id === "Nairobi"),
+      timeZones.find((tz) => tz.id === "new-york"),
+      timeZones.find(tz => tz.id === "london"),
+      timeZones.find(tz => tz.id === "tokyo"),
+      timeZones.find(tz => tz.id === "nairobi"),
     ].filter(Boolean) as TimeZone[];
 
+    console.log("Setting default timezones", defaults);
     setSelectedTimeZones(defaults);
 
     if (typeof window !== "undefined") {
@@ -62,16 +63,29 @@ export function TimeZoneManager() {
   };
 
   return (
-    <div>
-      <div>
-        <h2>Your Timezones</h2>
+    <div className="space-y-6">
+      <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+        <h2 className="text-xl font-semibold">Your Timezones</h2>
+        <TimeZonePicker onSelect={addTimeZone} />
       </div>
 
 
       <div>
-        <div>
-          <p>No time zones added yet. Use the "Add Time Zone" button to get started.</p>
-        </div>
+        {selectedTimeZones.map((timezone) => (
+          <TimeZoneCard
+            key={timezone.id}
+            id={timezone.id}
+            label={timezone.label}
+            timeZone={timezone.timeZone}
+            onRemove={() => removeTimeZone(timezone.id)}
+          />
+        ))}
+
+        {selectedTimeZones.length === 0 && (
+          <div>
+            <p>No time zones added yet. Use the "Add Time Zone" button to get started.</p>
+          </div>
+        )}
       </div>
     </div>
   );

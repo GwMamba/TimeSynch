@@ -13,7 +13,7 @@ interface TimezonePickerProps {
   onSelect: (timezone: TimeZone) => void;
 }
 
-export function TimeZonePicker({ onSelect }: TimeZonePickerProps) {
+export function TimeZonePicker({ onSelect }: TimezonePickerProps) {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
 

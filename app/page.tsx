@@ -54,7 +54,7 @@ export default function Home() {
             <div className="space-y-2">
               <h3 className="text-xl font-bold">Visualize Time Zones</h3>
               <p className="text-gray-500 dark:text-gray-400">
-                See all your team's timezones at a glance, with easy to understand visuals.
+                See all your team&apos;s timezones at a glance, with easy to understand visuals.
               </p>
             </div>
             <div className="space-y-2">
@@ -63,7 +63,7 @@ export default function Home() {
             </div>
             <div className="space-y-2">
               <h3 className="text-xl font-bold">Share with Your Team</h3>
-              <p className="text-gray-500 dark:text-gray-400">Send meeting invites that display in each recipient's local time.</p>
+              <p className="text-gray-500 dark:text-gray-400">Send meeting invites that display in each recipient&apos;s local time.</p>
             </div>
           </div>
         </div>

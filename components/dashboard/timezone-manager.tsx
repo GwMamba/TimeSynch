@@ -83,7 +83,7 @@ export function TimeZoneManager() {
 
         {selectedTimeZones.length === 0 && (
           <div>
-            <p>No time zones added yet. Use the "Add Time Zone" button to get started.</p>
+            <p>No time zones added yet. Use the &quot;dd Time Zone&quot; button to get started.</p>
           </div>
         )}
       </div>

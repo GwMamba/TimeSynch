@@ -24,6 +24,14 @@ export function TimeZoneCard({ id, label, timeZone, onRemove }: TimeZoneCardProp
   const [hourInTimeZone, setHourInTimeZone] = useState(0);
   const [error, setError] = useState<string | null>(null);
 
+  // Add this effect to use the id parameter
+  useEffect(() => {
+    console.log(`TimeZoneCard for ${label} id: ${id}) mounted`);
+    return () => {
+      console.log(`TimeZoneCard for ${label} id: ${id} unmounted`);
+    };
+  }, [id, label]);
+
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentTime(new Date());
@@ -65,6 +73,25 @@ export function TimeZoneCard({ id, label, timeZone, onRemove }: TimeZoneCardProp
   // Determine if it's working hours (9 AM - 5 PM)
   const isWorkingHours = hourInTimeZone >= BUSINESS_START_HOUR && hourInTimeZone < BUSINESS_END_HOUR;
 
+  // Add conditional rendering for the error message
+  if (error) {
+    return (
+      <Card className="border-red-300 dark:border-red-700">
+        <CardHeader className="flex flex-row items-center justify-between pb-2">
+          <CardTitle className="text-lg font-medium">{label}</CardTitle>
+          <Button variant="ghost" size="icon" onClick={onRemove} className="h-8 w-8">
+            <X className="h-4 w-4" />
+          </Button>
+        </CardHeader>
+        <CardContent>
+          <div className="text-red-500">
+            {error}
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+
   return (
     <Card className={cn(
       "relative transition-colors",
@@ -72,9 +99,9 @@ export function TimeZoneCard({ id, label, timeZone, onRemove }: TimeZoneCardProp
     )}>
       <CardHeader className="flex flex-row items-center justify-between pb-2">
         <CardTitle className="text-lg font-medium">{label}</CardTitle>
-          <Button variant="ghost" size="icon" onClick={onRemove} className="h-8 w-8">
-            <X className="h-4 w-4" />
-          </Button>
+        <Button variant="ghost" size="icon" onClick={onRemove} className="h-8 w-8">
+          <X className="h-4 w-4" />
+        </Button>
       </CardHeader>
       <CardContent>
         <div className="flex flex-col">

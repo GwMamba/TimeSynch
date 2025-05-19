@@ -12,6 +12,7 @@ import { cn } from "@/lib/utils"
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { TimeZone } from "@/lib/types";
+import { toZonedTime } from "date-fns-tz";
 
 interface MeetingFormProps {
   selectedTimeZones: TimeZone[];
@@ -54,7 +55,39 @@ export function MeetingForm({ selectedTimeZones, onSchedule }: MeetingFormProps)
             <Label>Meeting Title</Label>
             <Input />
           </div>
+
+          <div>
+            <Label>Description (Optional)</Label>
+            <Textarea />
+          </div>
+
+          <div>
+            <Label>Date</Label>
+            <Popover>
+              <PopoverTrigger>
+                <Button><CalendarIcon /></Button>
+              </PopoverTrigger>
+              <PopoverContent>
+                <Calendar />
+              </PopoverContent>
+            </Popover>
+          </div>
+          <div>
+            <Label>Participating Time Zones</Label>
+            <div>
+              <div>
+                <span>{tz.label}</span>
+                <span>{tz.timeZone}</span>
+              </div>
+               : (
+                <div>No time zones selected. Add time zones from the dashboard.</div>
+              )
+            </div>
+          </div>
         </CardContent>
+        <CardFooter>
+          <Button>Find Optimal Meeting Times</Button>
+        </CardFooter>
       </form>
     </Card>
   )

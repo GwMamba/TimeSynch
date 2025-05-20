@@ -1,63 +1,31 @@
-import type { ReactNode } from "react";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { MobileNav } from "@/components/dashboard/mobile-nav";
-import { ThemeToggle } from "@/components/theme-toggle";
+import Link from 'next/link';
+import type { ReactNode } from 'react';
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   return (
     <div className="flex min-h-screen flex-col">
-      {/* Header */}
-      <header className="border-b">
-        <div className="container mx-auto flex h-16 items-center justify-between px-4">
-          <div className="flex items-center gap-2">
-            <Link href="/">
-              <span className="text-xl font-bold">
-                TimeSync
-              </span>
-            </Link>
-          </div>
-
-          {/* Mobile Nav */}
-          <div className="md:hidden">
-            <MobileNav />
-          </div>
-
-          {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-6">
-            <Link href="/dashboard" className="text-sm font-medium hover:underline">
-              Dashboard
-            </Link>
-            <Link href="/dashboard/meetings" className="text-sm font-medium hover:underline">
-              Meetings
-            </Link>
-            <Link href="/dashboard/schedule" className="text-sm font-medium hover:underline">
-              Schedule
-            </Link>
+      <header className="border-b p-4">
+        <div className="container mx-auto flex justify-between items-center">
+          <Link href="/">
+            <span className="font-bold text-xl">TimeSync</span>
+          </Link>
+          
+          <nav className="flex gap-4">
+            <Link href="/dashboard">Dashboard</Link>
+            <Link href="/dashboard/schedule">Schedule</Link>
           </nav>
-
-          <div className="flex items-center gap-4">
-            <ThemeToggle />
-            <Button variant="ghost" size="sm">Your Name</Button>
-          </div>
         </div>
       </header>
-
-      {/* Main Content */}
-      <main className="flex-1">
-        <div className="container mx-auto py-6">
-          {children}
-        </div>
+      
+      <main className="flex-1 container mx-auto p-4">
+        {children}
       </main>
-
-      {/* Footer */}
-      <footer className="border-t py-4">
-        <div className="container mx-auto">
-          <p className="text-center text-sm text-gray-500">
-            TimeSync Dashboard = Portfolio Project
-          </p>
+      
+      <footer className="border-t p-4">
+        <div className="container mx-auto text-center text-sm text-gray-500">
+          TimeSync - Portfolio Project
         </div>
       </footer>
     </div>
-  )
+  );
 }

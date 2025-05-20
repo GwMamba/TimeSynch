@@ -31,6 +31,9 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
             <Link href="/dashboard/meetings" className="text-sm font-medium hover:underline">
               Meetings
             </Link>
+            <Link href="/dashboard/schedule" className="text-sm font-medium hover:underline">
+              Schedule
+            </Link>
           </nav>
 
           <div className="flex items-center gap-4">

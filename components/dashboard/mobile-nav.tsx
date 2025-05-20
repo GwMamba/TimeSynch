@@ -29,6 +29,13 @@ export function MobileNav() {
             >
               Meetings
             </Link>
+            <Link 
+              href="/dashboard/schedule"
+              onClick={() => setIsOpen(false)}
+              className="text-sm font-medium hover:underline"
+              >
+              Schedule
+            </Link>
           </nav>
         </div>
       )}

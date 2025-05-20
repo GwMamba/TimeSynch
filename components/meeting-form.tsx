@@ -8,7 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { CalendarIcon } from "lucide-react";
 import { format } from "date-fns";
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { TimeZone } from "@/lib/types";
@@ -45,50 +45,83 @@ export function MeetingForm({ selectedTimeZones, onSchedule }: MeetingFormProps)
   };
 
   return (
-    <Card>
+    <Card className="w-full">
       <CardHeader>
         <CardTitle>Schedule a Meeting</CardTitle>
       </CardHeader>
       <form onSubmit={handleSubmit}>
-        <CardContent>
-          <div>
-            <Label>Meeting Title</Label>
-            <Input />
+        <CardContent className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="Meeting Title">Meeting Title</Label>
+            <Input
+              id="title"
+              placeholder="Weekly Team Sync"
+              value={meetingTitle}
+              onChange={(e) => setMeetingTitle(e.target.value)}
+              required
+            />
           </div>
 
-          <div>
-            <Label>Description (Optional)</Label>
-            <Textarea />
+          <div className="space-y-2">
+            <Label htmlFor="description">Description (Optional)</Label>
+            <Textarea
+              id="description"
+              placeholder="Discuss project progress and upcoming milestones..."
+              value={meetingDescription}
+              onChange={(e) => setMeetingDescription(e.target.value)}
+              rows={3}
+            />
           </div>
 
-          <div>
+          <div className="space-y-2">
             <Label>Date</Label>
             <Popover>
-              <PopoverTrigger>
-                <Button><CalendarIcon /></Button>
+              <PopoverTrigger asChild>
+                <Button
+                  variant="outline"
+                  className={cn(
+                    "w-full justify-start text-left font-normal",
+                    !meetingDate && "text-muted-foreground"
+                  )}
+                ><CalendarIcon className="mr-2 h-4 w-4" />
+                  {meetingDate ? format(meetingDate, "PPP") : "Select a date"}
+                </Button>
               </PopoverTrigger>
-              <PopoverContent>
-                <Calendar />
+              <PopoverContent className="w-auto p-0">
+                <Calendar
+                  mode="single"
+                  selected={meetingDate}
+                  onSelect={setMeetingDate}
+                  initialFocus
+                  disabled={(date) => date < new Date()}
+                />
               </PopoverContent>
             </Popover>
           </div>
-          <div>
+
+          <div className="space-y-2">
             <Label>Participating Time Zones</Label>
-            <div>
-              <div>
-                <span>{tz.label}</span>
-                <span>{tz.timeZone}</span>
-              </div>
-               : (
-                <div>No time zones selected. Add time zones from the dashboard.</div>
-              )
+            <div className="grid-gap-2">
+              {selectedTimeZones.length > 0 ? (
+                selectedTimeZones.map((tz) => (
+                  <div
+                    key={tz.id}
+                    className="flex items-center rounded-md border px-3 py-2"
+                  >
+                    <span>{tz.label}</span>
+                    <span className="ml-auto text-sm text-muted-foreground">{tz.timeZone}</span>
+                  </div>
+                ))
+              ) : (
+                <div className="text-sm text-muted-foreground py-2">No time zones selected. Add time zones from the dashboard.</div>
+              )}
             </div>
           </div>
         </CardContent>
         <CardFooter>
-          <Button>Find Optimal Meeting Times</Button>
+          <Button type="submit" className="w-full" disabled={!meetingTitle || !meetingDate}>Find Optimal Meeting Times</Button>
         </CardFooter>
       </form>
     </Card>
-  )
+  );
 }

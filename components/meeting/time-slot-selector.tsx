@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CartTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { TimeZone } from "@/lib/types";
 import { formatInTimeZone } from "date-fns-tz";
 import { cn } from "@/lib/utils";
@@ -70,25 +70,44 @@ export function TimeSlotSelector({ date, timeZones, onSelectSlot }: TimeSlotSele
   };
 
   return (
-    <Card>
+    <Card className="w-full">
       <CardHeader>
         <CardTitle>Select a Time Slot</CardTitle>
       </CardHeader>
       <CardContent>
-        <div>
-          Meeting date
+        <div className="text-sm mb-4">
+          Meeting date: {date ? formatInTimeZone(date, "UTC", "EEE, MMMM d, yyyy") : "No date selected"}
         </div>
 
-        <div>
-          <div>
-            <Button>
-              <div>
-                Am
+        <div className="space-y-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
+            {timeSlots.maps((slot) => (
+              <Button
+                key={slot.startHour}
+                variant="outline"
+                className={cn(
+                  "h-auto py-2 justify-between flex-col"
+                  getSlotColor(slot.score),
+                  selectedSlot?.startHour === slot.startHour ? "border-2 border-primary" : ""
+                )}
+                onClick={() => handleSelectSlot(slot)}
+              >
+              <div className="text-base">
+                {slot.startHour === 12 ? "12 PM" :
+                slot.starHour === 0 ? "12 AM" :
+                slot.startHour > 12 ? `${slot.statHour - 12} PM` :
+                `${slot.startHour} AM`}
+                {" - "}
+                {slot.endHour === 12 ? "12 PM" :
+                slot.endHour === 0 ? "12 AM" :
+                slot.endHour > 12 ? `${slot.endHour - 12} PM` :
+                `${slot.endHour} AM`}
               </div>
-              <div>
-                Pm
+              <div className="mt-1 text-xs">
+                  {slot.score}% optimal
               </div>
             </Button>
+            ))}
           </div>
         </div>
       </CardContent>

@@ -1,10 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { MeetingForm } from "@/components/meeting/meeting-form";
-import { TimeSlotSelector } from "@/components/meeting/time-slot-selector";
-import { TimeZone } from "@/lib/types";
-import { timeZones as allTimeZones } from "@/lib/timezone-data";
+// Use relative imports instead of path aliases
+import { MeetingForm } from "../../../components/meeting/meeting-form";
+import { TimeSlotSelector } from "../../../components/meeting/time-slot-selector";
+import { TimeZone } from "../../../lib/types";
+import { timeZones as allTimeZones } from "../../../lib/timezone-data";
 
 export default function SchedulePage() {
   const [selectedTimeZones, setSelectedTimeZones] = useState<TimeZone[]>([]);

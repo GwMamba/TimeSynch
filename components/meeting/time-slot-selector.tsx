@@ -1,17 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { TimeZone } from "@/lib/types";
-import { formatInTimeZone } from "date-fns-tz";
-import { cn } from "@/lib/utils";
-
-interface TimeSlot {
-  startHour: number;
-  endHour: number;
-  score: number; // 0-100 for quality of slot
-}
 
 interface TimeSlotSelectorProps {
   date: Date;
@@ -20,97 +10,31 @@ interface TimeSlotSelectorProps {
 }
 
 export function TimeSlotSelector({ date, timeZones, onSelectSlot }: TimeSlotSelectorProps) {
-  const [selectedSlot, setSelectedSlot] = useState<TimeSlot | null>(null);
-
-  // Calculate time slots from 0-23 (24 hours)
-  const timeSlots: TimeSlot[] = [];
-  for (let hour = 0; hour < 24; hour++) {
-    const startHour = hour;
-    const endHour = hour + 1;
-
-    // Calculate a score based on how many time zones have this hour in business hours
-    let score = 0;
-    const BUSINESS_START = 9;
-    const BUSINESS_END = 17;
-
-    timeZones.forEach((tz) => {
-      // Convert hour to local hour in this time zone
-      const localHour = (hour + tz.offset) % 24;
-      // Check if it's business hours
-      if (localHour >= BUSINESS_START && localHours < BUSINESS_END) {
-        score += 100 / timeZones.length;
-      }
-    });
-
-    timeSlots.push({
-      startHour,
-      endHour,
-      score: Math.round(score)
-    });
-  }
-
-  const handleSelectSlot = (slot: TimeSlot) => {
-    setSelectedSlot(slot);
-
-    // Create Date objects for the selected slot
+  // Simplify to just create a 9-10 AM meeting by default
+  const handleSelect = () => {
     const startDate = new Date(date);
-    startDate.setHours(slot.startHour, 0, 0, 0);
-
+    startDate.setHours(9, 0, 0, 0);
+    
     const endDate = new Date(date);
-    endDate.setHours(slot.endHour, 0, 0, 0);
-
+    endDate.setHours(10, 0, 0, 0);
+    
     onSelectSlot({ start: startDate, end: endDate });
   };
-
-  // Function to get background color based on score
-  const getSlotColor = (score: number) => {
-    if (score >= 80) return "bg-green-100 dark:bg-green-900/30";
-    if (score >= 50) return "bg-yellow-100 dark:bg-yellow-900/30";
-    return "bg-red-50 dark:bg-red-900/30";
-  };
-
+  
   return (
-    <Card className="w-full">
-      <CardHeader>
-        <CardTitle>Select a Time Slot</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="text-sm mb-4">
-          Meeting date: {date ? formatInTimeZone(date, "UTC", "EEE, MMMM d, yyyy") : "No date selected"}
-        </div>
-
-        <div className="space-y-2">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
-            {timeSlots.maps((slot) => (
-              <Button
-                key={slot.startHour}
-                variant="outline"
-                className={cn(
-                  "h-auto py-2 justify-between flex-col"
-                  getSlotColor(slot.score),
-                  selectedSlot?.startHour === slot.startHour ? "border-2 border-primary" : ""
-                )}
-                onClick={() => handleSelectSlot(slot)}
-              >
-              <div className="text-base">
-                {slot.startHour === 12 ? "12 PM" :
-                slot.starHour === 0 ? "12 AM" :
-                slot.startHour > 12 ? `${slot.statHour - 12} PM` :
-                `${slot.startHour} AM`}
-                {" - "}
-                {slot.endHour === 12 ? "12 PM" :
-                slot.endHour === 0 ? "12 AM" :
-                slot.endHour > 12 ? `${slot.endHour - 12} PM` :
-                `${slot.endHour} AM`}
-              </div>
-              <div className="mt-1 text-xs">
-                  {slot.score}% optimal
-              </div>
-            </Button>
-            ))}
-          </div>
-        </div>
-      </CardContent>
-    </Card>
-  )
+    <div className="border rounded-lg p-4 w-full">
+      <div className="font-medium text-lg mb-2">Select a Time Slot</div>
+      
+      <div className="text-sm mb-4">
+        Meeting date: {date ? date.toLocaleDateString() : 'No date selected'}
+      </div>
+      
+      <button 
+        className="bg-primary text-primary-foreground px-4 py-2 rounded" 
+        onClick={handleSelect}
+      >
+        9:00 AM - 10:00 AM
+      </button>
+    </div>
+  );
 }
